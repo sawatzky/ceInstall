@@ -5,6 +5,9 @@ if($1 == "keepmine") then
 	setenv overwrite "no"
 endif
 
+## Hosts for which the most current software will work
+set PREFERRED_HOSTS = "jlabl4, ifarm1402"
+
 # Get date from:
 # git log -1
 set CE_DATE = "(Wed Oct 6 2016)"
@@ -66,6 +69,15 @@ endif
 
 # JLAB_SOFTWARE is where all the architecture software will be
 setenv JLAB_SOFTWARE $JLAB_ROOT/$JLAB_VERSION/$OSRELEASE
+
+if ( ! -d "$JLAB_SOFTWARE" ) then
+	echo
+	echo " > Common Environment Version: <"$JLAB_VERSION">  "$CE_DATE
+	echo " >   does not exist on this machine.  Please try using one of these hosts:"
+	echo " >   $PREFERRED_HOSTS"
+	echo
+	exit 1
+endif
 
 echo
 echo " > Common Environment Version: <"$JLAB_VERSION">  "$CE_DATE
